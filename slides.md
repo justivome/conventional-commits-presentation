@@ -1,662 +1,374 @@
 ---
-# try also 'default' to start simple
 theme: dracula
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
+title: Commit Messages,<br>On My Terms
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
+  ## Commit Messages, On My Terms
+  A configurable Windsurf workflow that writes semantic commit messages
+  for my staged changes — in the format I control.
 class: text-center
-# https://sli.dev/features/drawing
 drawings:
   persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable Comark Syntax: https://comark.dev/syntax/markdown
-comark: true
-# duration of the presentation
-duration: 35min
+mdc: true
+duration: 12min
 ---
 
-# Welcome to Slidev
+<div class="flex flex-col items-center justify-center text-center">
 
-Presentation slides for developers
+# Commit Messages,<br><span class="text-purple-300">On My Terms</span>
 
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+<p class="max-w-xl mx-auto text-balance leading-relaxed opacity-90">
+A configurable <b>Windsurf workflow</b> that writes semantic commit messages
+for my staged changes — in the format <em>I</em> control.
+</p>
+
+<div class="mt-6 text-sm opacity-50">
+  Ivo Karaneshev · June 2026
 </div>
 
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
+<div @click="$slidev.nav.next" class="mt-12 py-1 opacity-60 hover:opacity-100 transition cursor-pointer">
+  Press <kbd>space</kbd> to start <carbon:arrow-right class="inline"/>
+</div>
+
 </div>
 
 <!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
+This is a short show-and-tell of a tiny workflow I built in Windsurf.
+It nags an AI to write my commit messages for me — but in MY format, with MY rules.
+Two-minute idea, but it removed a paper cut I hit a dozen times a day.
+Let's start with why I bothered.
 -->
 
 ---
-transition: fade-out
+layout: section
 ---
 
-# What is Slidev?
+# The problem
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
+<div class="opacity-70 mt-4">We're lazy when it comes to commit messages.</div>
 
 <!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
+Be honest: writing a good commit message is the most skippable step in the whole loop.
+The code works, the PR is open, and the message is an afterthought.
 -->
 
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
+---
+
+# The git log nobody is proud of
+
+<div class="grid grid-cols-2 gap-8 mt-4">
+<div>
+
+```bash
+$ git log --oneline
+a1b2c3d  wip
+4d5e6f7  fix
+8g9h0i1  stuff
+2j3k4l5  asdf
+6m7n8o9  fix again
+0p1q2r3  please work
+4s5t6u7  final fix (real)
+```
+
+</div>
+<div>
+
+<v-clicks>
+
+- 🔍 **Bisect & blame** become useless
+- 👀 **Reviewers** can't see intent at a glance
+- 📝 **Changelogs** can't be generated
+- 🕰️ **Future-you** has zero context
+- 🤝 The whole **team** pays the tax
+
+</v-clicks>
+
+</div>
+</div>
+
+<div v-click class="mt-8 text-center text-lg opacity-80">
+The diff already says <em>what</em> changed. A good message says it <span v-mark.purple="6">at a glance.</span>
+</div>
 
 <!--
-Here is another comment.
+We all have this log. WIP, fix, asdf, "please work".
+The cost isn't felt today — it's felt three months from now when you're bisecting a regression,
+or when someone tries to auto-generate a changelog and gets garbage.
+The information IS there, in the diff. We're just too lazy to summarize it. So... let's not be.
 -->
 
 ---
-transition: slide-up
-level: 2
+layout: fact
 ---
 
-# Navigation
+# AI is _good enough_ for this
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
+<div class="text-xl opacity-80 mt-6 max-w-2xl mx-auto">
+Reading a diff and summarizing it is <span class="text-green-300">exactly</span> what an LLM is great at.
+</div>
 
-## Keyboard Shortcuts
+<div v-click class="mt-10 text-base opacity-70 max-w-2xl mx-auto">
+The bottleneck was never capability — it's <span v-mark.circle.orange="1">friction.</span>
+Make the good message the <em>lazy</em> option, and laziness starts working <em>for</em> you.
+</div>
 
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
+<!--
+Here's the key insight. Summarizing a diff is squarely in the model's wheelhouse —
+it's literally text-in, text-out summarization.
+So the question isn't "can AI do it" — it can. The question is how do I remove the friction
+AND keep control of the output format. Make the right thing the path of least resistance.
+-->
 
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
+---
+
+# The built-in option
+
+Windsurf already ships a **"Generate commit message"** ✨ button. So why not just use it?
+
+<div class="grid grid-cols-2 gap-6 mt-6">
+<div v-click class="p-4 rounded-lg border border-yellow-500/30 bg-yellow-500/5">
+
+### ⚠️ It's in beta + documented limits
+
+- "Large or complex commits may result in **more generic messages**"
+- "Specialized **terminology** might not always be captured"
+- "Generated messages are suggestions and **may need editing**"
+
+</div>
+<div v-click class="p-4 rounded-lg border border-red-500/30 bg-red-500/5">
+
+### 🚫 And the dealbreaker for me
+
+- **Not configurable** — I can't enforce my
+  `#TICKET - type(scope): title` convention
+- No control over **types**, **ticket prefix**, or **guardrails**
+- It's a black box I can't tune
+
+</div>
+</div>
+
+<div v-click class="mt-6 text-center opacity-70 text-sm">
+Source: <a href="https://docs.devin.ai/desktop/ai-commit-message#limitations" target="_blank">docs.devin.ai — AI commit message · Limitations</a>
+</div>
+
+<!--
+The obvious objection: Windsurf already has a sparkle button for this. I tried it.
+It's fine! But it's beta, and their own docs list these limits — generic on big commits,
+misses jargon, always needs a pass.
+The real dealbreaker though is the last column: I can't make it follow my team's format.
+No ticket prefix, no fixed type list. It's a black box. I wanted a glass box.
+-->
 
 ---
 layout: two-cols
-layoutClass: gap-16
+layoutClass: gap-8
 ---
 
-# Table of contents
+# The Approach
 
-You can use the `Toc` component to generate a table of contents for your slides:
+Not a button — a **workflow + a rule**.
+Two small markdown files I own and version.
 
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
+<v-clicks>
 
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
+- 🧠 The **rule** defines _what good looks like_
+- 🪜 The **workflow** defines _the procedure_
+- ✍️ I own both → I own the output
+
+</v-clicks>
 
 ::right::
 
-<Toc text-sm minDepth="1" maxDepth="2" />
-
----
-layout: image-right
-image: https://cover.sli.dev
----
-
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts [filename-example.ts] {all|4|6|6-7|9|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
+```md
+.windsurf/
+├── rules/
+│   └── commit-message.md   # always_on
+│       → format, types,
+│         ticket convention
+└── workflows/
+    └── commit.md           # /commit
+        → stage-check, diff,
+          review, commit
 ```
 
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
+<div v-click class="mt-4 text-sm opacity-70">
+Plain markdown. Diffable. Tweakable in 10 seconds.
+</div>
 
 <!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
+So here's what I built instead. Two markdown files.
+One is a RULE — always-on context that teaches the model my format, my allowed types,
+my ticket convention. The other is a WORKFLOW, invoked with slash-commit, that's the actual
+procedure: check staging, read the diff, propose, let me approve, commit.
+Both are plain markdown in my repo. I can tweak them in seconds, and they're versioned with the project.
 -->
 
 ---
-level: 2
+
+# How it flows
+
+<div class="grid grid-cols-2 gap-10 mt-2 items-center">
+<div class="flex flex-col gap-4 text-sm">
+<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
+🔒 <b>Never stages for me</b><br/><span class="opacity-70">I stage manually — only staged changes get committed</span>
+</div>
+<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
+👀 <b>Always reviewable</b><br/><span class="opacity-70">Message shown in chat before anything is committed</span>
+</div>
+<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
+🧹 <b>No AI ads</b><br/><span class="opacity-70">No "Generated with…" noise in my history</span>
+</div>
+</div>
+<div class="flex justify-center">
+
+```mermaid {scale: 0.62}
+flowchart TD
+  A([stage]) --> B[/commit/]
+  B --> C[read staged diff]
+  C --> D[draft message]
+  D --> E{review}
+  E -- edit --> D
+  E -- go --> F([commit ✅])
+```
+
+</div>
+</div>
+
+<!--
+The flow itself. I stage what I want — deliberately, because staging IS my intent.
+I run slash-commit. It reads only the staged diff, drafts a message using the rule,
+and shows it to me in chat. I can ask for tweaks, or say "proceed" / "commit" / "go" and it commits.
+Three guardrails I care about, along the bottom: it never stages for me — that's sacred, staging is intent.
+It always shows me the message first. And no "Generated with AI" ad in my history.
+-->
+
 ---
 
-# Shiki Magic Move
+# The format
 
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
+A strict, parseable convention — ticket auto-derived from the branch name.
 
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
+```md {1|3-4}
+#<ticket> - <type>(<scope>): <title>     ← lowercase title, ≤50 chars, no period
 
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
+- optional bullet explaining the *why*
+- another high-level point
 ```
 
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
-}
+<div class="mt-4 mb-2 text-sm opacity-70">Allowed types — a fixed, predictable set:</div>
+
+<div class="flex flex-wrap gap-2 text-sm">
+  <span class="px-2 py-1 rounded bg-green-500/15 border border-green-500/30">feat</span>
+  <span class="px-2 py-1 rounded bg-red-500/15 border border-red-500/30">fix</span>
+  <span class="px-2 py-1 rounded bg-purple-500/15 border border-purple-500/30">refactor</span>
+  <span class="px-2 py-1 rounded bg-blue-500/15 border border-blue-500/30">docs</span>
+  <span class="px-2 py-1 rounded bg-yellow-500/15 border border-yellow-500/30">test</span>
+  <span class="px-2 py-1 rounded bg-pink-500/15 border border-pink-500/30">chore</span>
+  <span class="px-2 py-1 rounded bg-cyan-500/15 border border-cyan-500/30">style</span>
+  <span class="px-2 py-1 rounded bg-orange-500/15 border border-orange-500/30">perf</span>
+</div>
+
+<div v-click class="mt-6 text-sm opacity-80">
+On branch <code>CALI-3250</code>? → the message starts with <code>#CALI-3250</code> automatically. No copy-paste.
+</div>
+
+<!--
+Here's the actual format the rule enforces. Ticket prefix, conventional-commit type and scope,
+a lowercase title under 50 chars with no trailing period, and an optional body for the WHY.
+The type list is fixed — eight options — so it's predictable and greppable.
+And the nice touch: it pulls the ticket number straight from the branch name. I name branches
+after the ticket anyway, so I never type the ticket again.
+-->
+
+---
+
+# Before → after
+
+The same staged change, two worlds apart:
+
+<div class="relative h-6 mb-1 text-sm">
+  <span class="absolute inset-x-0 transition-opacity duration-1200" :class="$clicks < 1 ? 'opacity-80' : 'opacity-0'">What the laziest dev would type…</span>
+  <span class="absolute inset-x-0 transition-opacity duration-1200" :class="$clicks === 1 ? 'opacity-80' : 'opacity-0'">What the workflow proposes instead…</span>
+  <span class="absolute inset-x-0 transition-opacity duration-1200" :class="$clicks >= 2 ? 'opacity-80' : 'opacity-0'">…and the body, when the change earns it.</span>
+</div>
+
+````md magic-move
+```
+WIP
 ```
 
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
+```
+#CALI-3250 - feat(auth): add JWT login flow
 ```
 
-Non-code blocks are ignored.
+```
+#CALI-3250 - feat(auth): add JWT login flow
 
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
+- Implemented JWT token validation logic
+- Added login form component
+- Updated auth service methods
 ```
 ````
 
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>`, `<BlueSky/>`, and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
+<div v-click class="mt-6 text-center opacity-80">
+Same effort for me. Wildly more useful for everyone reading it later.
 </div>
 
 <!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
+This is the whole pitch in one slide. Left to right, same staged diff.
+Top: what I'd actually type at 6pm on a Friday — "fix".
+Then what the workflow gives me: a proper semantic message with the ticket.
+And when the change deserves it, a body explaining the why.
+My effort is identical — I stage and say "go". The payoff lands on every future reader.
 -->
 
 ---
-class: px-20
----
 
-# Themes
+# Comparison
 
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
+<div class="text-sm">
 
-<div grid="~ cols-2 gap-2" m="t-2">
 
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
+|  | ✨ Windsurf button | 🛠️ My workflow |
+|---|---|---|
+| **Format** (`#TICKET - type(scope)`) | ❌ not configurable | ✅ enforced by rule |
+| **Ticket from branch** | ❌ | ✅ automatic |
+| **Fixed type vocabulary** | ❌ | ✅ 8 defined types |
+| **Guardrails** (never-stage, no AI ads) | ❌ | ✅ I define them |
+| **Reviewable before commit** | ⚠️ in the box | ✅ in chat, with edits |
+| **Evolves with me** | ❌ beta black box | ✅ plain markdown, versioned |
 
 </div>
 
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you press <kbd>space</kbd> or <kbd>right</kbd>, or click outside the slide on the right.
-
-```html
-<div v-click>This shows up when you trigger a click animation.</div>
-```
-
+<div v-click class="mt-6 text-center text-lg opacity-85">
+The button is someone else's opinion. <span class="text-purple-300">This is mine — and it's a text file.</span>
 </div>
 
-<p v-click>
-You can also add modifiers to change the animation:
-</p>
+<!--
+Side by side. The button covers the happy path, but every row where I want control, it's a no.
+Mine is yes across the board because it's just markdown I wrote.
+The one-liner I'd leave them with: the button is someone else's opinion baked into beta software.
+Mine is my opinion, and it's a text file I can change whenever my team's convention changes.
+-->
 
-<div class="grid gap-3 mt-4 text-sm" style="grid-template-columns: repeat(3, 1fr) 1.5fr 1fr">
-  <div v-after.up class="p-3 rounded border border-primary/20 bg-primary/10">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.up</div>
-    <div>Slide from bottom</div>
-  </div>
-  <div v-click.fade-in class="p-3 rounded border border-primary/30 bg-primary/15">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade-in</div>
-    <div>Fade in</div>
-  </div>
-  <div v-click.fade class="p-3 rounded border border-primary/40 bg-primary/20">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade</div>
-    <div>Dim (0.5 opacity)</div>
-  </div>
-  <div v-click.fade.right.scale class="p-3 rounded border border-primary/50 bg-primary/25">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade.right.scale</div>
-    <div>Composed</div>
-  </div>
-  <div v-click.none class="p-3 rounded border border-primary/60 bg-primary/30">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.none</div>
-    <div>No transition</div>
-  </div>
+---
+layout: statement
+---
+
+# Make the good commit<br/>the _lazy_ commit.
+
+<div class="text-lg opacity-75 mt-8 max-w-xl mx-auto">
+Low friction <span class="opacity-50">+</span> my rules <span class="opacity-50">=</span>
+a history I'm actually proud of.
 </div>
 
-<v-click>
-
-The <span v-mark.red="7"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="8">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div v-click mt-12>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
+<div v-click class="mt-12 text-sm opacity-60">
+Two markdown files. Steal them, bend them to your convention, commit better.
 </div>
 
----
-
-# Motions
-
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
-
-</div>
-
----
-
-# $\LaTeX$
-
-$\LaTeX$ is supported out-of-box. Powered by [$\KaTeX$](https://katex.org/).
-
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
-
----
-foo: bar
-dragPos:
-  square: 713,72,167,_,-16
----
-
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="625,392,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="399,250,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
-```
-
----
-layout: center
-class: text-center
----
-
-# Learn More
-
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
-
-<PoweredBySlidev mt-10 />
+<!--
+The takeaway. The trick isn't "use AI" — it's removing friction while keeping control,
+so the good message becomes the path of least resistance.
+Two small markdown files did that for me. Steal them, change the format to your team's,
+and your git log stops being something you apologize for. That's it — thanks!
+-->
