@@ -261,13 +261,13 @@ Defines the format, the allowed types, and the ticket convention.
 
 Inspired by [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/#summary)
 
-```md {1|3-4}
+```md {1|3-4|1-4}
 #<ticket> - <type>(<scope>): <title>     ← lowercase title, ≤50 chars, no period
 
 - optional bullet explaining the *why*
 - another high-level point
 ```
-<v-click>
+<div v-click="2">
 <div class="mt-4 mb-2 text-sm opacity-70">Allowed types - a fixed, predictable set:</div>
 
 <div class="grid grid-cols-2 gap-4 text-sm">
@@ -320,9 +320,9 @@ Inspired by [Conventional Commits specification](https://www.conventionalcommits
   - Performance improvements
   </div>
 </div>
-</v-click>
+</div>
 
-<div v-click class="mt-6 text-sm opacity-80">
+<div v-click="3" class="mt-6 text-sm opacity-80">
 On branch <code>CALI-3250</code>? → the message starts with <code>#CALI-3250</code> automatically. No copy-paste.
 </div>
 
