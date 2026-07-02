@@ -3,7 +3,7 @@ theme: dracula
 title: Commit Messages,<br>On My Terms
 info: |
   ## Commit Messages, On My Terms
-  A configurable Windsurf workflow that writes semantic commit messages
+  A configurable Devin workflow that writes semantic commit messages
   for my staged changes — in the format I control.
 class: text-center
 drawings:
@@ -15,27 +15,24 @@ duration: 12min
 
 <div class="flex flex-col items-center justify-center text-center">
 
-# Commit Messages,<br><span class="text-purple-300">On My Terms</span>
+<img src="/Git-Logo-White.png" class="h-16 mb-8" />
+
+<h1 class="text-5xl">How I Built an Agent<br><span class="text-purple-300">To Generate Custom</span><br>Commit Messages</h1>
 
 <p class="max-w-xl mx-auto text-balance leading-relaxed opacity-90">
-A configurable <b>Windsurf workflow</b> that writes semantic commit messages
-for my staged changes — in the format <em>I</em> control.
+Automation that costs a moment now and pays off every time someone reads the history later.
 </p>
 
 <div class="mt-6 text-sm opacity-50">
-  Ivo Karaneshev · June 2026
-</div>
-
-<div @click="$slidev.nav.next" class="mt-12 py-1 opacity-60 hover:opacity-100 transition cursor-pointer">
-  Press <kbd>space</kbd> to start <carbon:arrow-right class="inline"/>
+  Ivo Karaneshev · IT-DEV Reporting · July 2026
 </div>
 
 </div>
 
 <!--
-This is a short show-and-tell of a tiny workflow I built in Windsurf.
-It nags an AI to write my commit messages for me — but in MY format, with MY rules.
-Two-minute idea, but it removed a paper cut I hit a dozen times a day.
+This is a short show-and-tell of a tiny workflow I built for Devin.
+It asks an AI to write my commit messages for me — but in MY format, with MY rules.
+A small idea, but it removed a step I used to do manually, every single time.
 Let's start with why I bothered.
 -->
 
@@ -43,73 +40,92 @@ Let's start with why I bothered.
 layout: section
 ---
 
-# The problem
+# 👨‍💻<br>The problem
 
-<div class="opacity-70 mt-4">We're lazy when it comes to commit messages.</div>
+<div class="opacity-70 mt-4">The one step I'm still typing manually, every single time.</div>
 
 <!--
-Be honest: writing a good commit message is the most skippable step in the whole loop.
-The code works, the PR is open, and the message is an afterthought.
+I'm a big fan of automation and AI-assisted development — it lets me finish work faster and focus
+on the bigger picture. But the one part of the loop that stayed manual, every single time, was
+writing the commit message. And I wasn't the only one.
 -->
 
 ---
 
-# The git log nobody is proud of
+# The Backstory
 
-<div class="grid grid-cols-2 gap-8 mt-4">
-<div>
+Git hooks require every message to start with a ticket number before it reaches the remote.
+<v-click>
+For example <code>#CALI-3250</code>, <code>#PROSET-1234</code> or similar. 
+</v-click>
+
+<p v-after>
+Everything after that is left to the developer.
+</p>
+
+<div class="grid grid-cols-2 gap-8 mt-8">
+<div v-click>
 
 ```bash
 $ git log --oneline
-a1b2c3d  wip
-4d5e6f7  fix
-8g9h0i1  stuff
-2j3k4l5  asdf
-6m7n8o9  fix again
-0p1q2r3  please work
-4s5t6u7  final fix (real)
+a1b2c3d  BS-100231 added changable bic, iban, ...
+4d5e6f7  EXEREF-12087 fix: correct header and select...
+8g9h0i1  CALI-3250 narrowinf disabled ...
 ```
+
+<div class="text-sm opacity-80">
+✅ Some of us heve good habits to write informative messages.
+</div>
 
 </div>
 <div>
 
+<div v-click>
+
+```bash
+$ git log --oneline
+a1b2c3c  BS-100232 WIP
+4d5e6f4  EXEREF-12088 fix
+8g9h0i2  CALI-3251 update
+```
+
+<div class="text-sm opacity-80">
+ <span>❌ But that is not always the case.</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="col-start-2">
 <v-clicks>
 
-- 🔍 **Bisect & blame** become useless
-- 👀 **Reviewers** can't see intent at a glance
-- 📝 **Changelogs** can't be generated
-- 🕰️ **Future-you** has zero context
-- 🤝 The whole **team** pays the tax
+- 🔍 **Bisect & blame** turn into guesswork
+- 👀 **Reviewers** lose the intent at a glance
+- 🕰️ **Future-you**, three months on, has to ask why
 
 </v-clicks>
-
 </div>
-</div>
-
-<div v-click class="mt-8 text-center text-lg opacity-80">
-The diff already says <em>what</em> changed. A good message says it <span v-mark.purple="6">at a glance.</span>
 </div>
 
 <!--
-We all have this log. WIP, fix, asdf, "please work".
-The cost isn't felt today — it's felt three months from now when you're bisecting a regression,
-or when someone tries to auto-generate a changelog and gets garbage.
-The information IS there, in the diff. We're just too lazy to summarize it. So... let's not be.
+This is a log most of us recognize. The ticket-number hook is satisfied, so the push goes through —
+but "WIP" and "fix" tell a future reader nothing.
+The cost isn't felt today. It's felt three months from now, bisecting a regression, or trying to
+explain why a change was made. The information IS in the diff — we're just not writing it down.
 -->
 
 ---
-layout: fact
+layout: section
 ---
+
+<img src="/devin-light.avif" class="mx-auto h-20 mb-2" />
+
 
 # AI is _good enough_ for this
 
 <div class="text-xl opacity-80 mt-6 max-w-2xl mx-auto">
-Reading a diff and summarizing it is <span class="text-green-300">exactly</span> what an LLM is great at.
-</div>
-
-<div v-click class="mt-10 text-base opacity-70 max-w-2xl mx-auto">
-The bottleneck was never capability — it's <span v-mark.circle.orange="1">friction.</span>
-Make the good message the <em>lazy</em> option, and laziness starts working <em>for</em> you.
+Reading a diff and summarizing it is <span v-mark.circle.orange="1" >exactly</span> what an LLM is great at.
 </div>
 
 <!--
@@ -123,7 +139,18 @@ AND keep control of the output format. Make the right thing the path of least re
 
 # The built-in option
 
-Windsurf already ships a **"Generate commit message"** ✨ button. So why not just use it?
+<div class="flex items-center gap-6 mt-2">
+<div class="flex-1">
+
+Devin already ships a **"Generate commit message"** ✨ button. 
+
+<i>So why not just use it?</i>
+
+</div>
+
+<img src="/generate-commit-message.png" class="h-24 rounded-lg border border-white/10 shadow-lg" />
+
+</div>
 
 <div class="grid grid-cols-2 gap-6 mt-6">
 <div v-click class="p-4 rounded-lg border border-yellow-500/30 bg-yellow-500/5">
@@ -137,12 +164,11 @@ Windsurf already ships a **"Generate commit message"** ✨ button. So why not ju
 </div>
 <div v-click class="p-4 rounded-lg border border-red-500/30 bg-red-500/5">
 
-### 🚫 And the dealbreaker for me
+### 🚫 The dealbreaker for me
 
-- **Not configurable** — I can't enforce my
-  `#TICKET - type(scope): title` convention
+- **Not configurable** - no custom format 
 - No control over **types**, **ticket prefix**, or **guardrails**
-- It's a black box I can't tune
+- It's a black box that cannot be tuned
 
 </div>
 </div>
@@ -160,24 +186,20 @@ No ticket prefix, no fixed type list. It's a black box. I wanted a glass box.
 -->
 
 ---
-layout: two-cols
-layoutClass: gap-8
----
 
-# The Approach
+# The Idea
 
-Not a button — a **workflow + a rule**.
-Two small markdown files I own and version.
+<div class="grid grid-cols-2 items-center justify-between gap-6 mb-5">
+<div>
 
-<v-clicks>
+The solution is quite small - **Workflow + Rule**.<br>
+Two small markdown files that can be versioned.
 
-- 🧠 The **rule** defines _what good looks like_
-- 🪜 The **workflow** defines _the procedure_
-- ✍️ I own both → I own the output
+</div>
 
-</v-clicks>
 
-::right::
+<div>
+
 
 ```md
 .windsurf/
@@ -191,62 +213,52 @@ Two small markdown files I own and version.
           review, commit
 ```
 
-<div v-click class="mt-4 text-sm opacity-70">
-Plain markdown. Diffable. Tweakable in 10 seconds.
+</div>
+
+</div>
+
+<v-click>
+
+### Rule vs Workflow vs Skill
+
+</v-click>
+
+<v-clicks>
+
+- 🧠 A **Rule** is a behavioral guideline - *always-on* context that shapes *how* AI behaves
+- 🪜 A **workflow** is a prompt template for a *repeatable task* - triggered *manually*, on demand
+- 🎯 A **Skill** is bundled procedure with supporting files - invoked *automatically* by AI,
+based on context
+
+</v-clicks>
+
+<p v-click class="text-sm">
+
+✅ *TODO* : turning <code>/commit</code> from a workflow into a <b>skill</b>, so Cascade can invoke it on its own.
+
+</p>
+<div v-click class="mt-6 text-xs text-center opacity-60">
+ See Devin's <a href="https://docs.devin.ai/desktop/cascade/skills#skills-vs-rules-vs-workflows" target="_blank">Skills vs Rules vs Workflows</a>.
 </div>
 
 <!--
 So here's what I built instead. Two markdown files.
-One is a RULE — always-on context that teaches the model my format, my allowed types,
-my ticket convention. The other is a WORKFLOW, invoked with slash-commit, that's the actual
-procedure: check staging, read the diff, propose, let me approve, commit.
+One is a RULE — a behavioral guideline, always-on context that teaches the model my format, my
+allowed types, my ticket convention. The other is a WORKFLOW — a prompt template for a repeatable
+task, invoked manually with slash-commit: check staging, read the diff, propose, let me approve, commit.
 Both are plain markdown in my repo. I can tweak them in seconds, and they're versioned with the project.
+Longer term, I want to turn this workflow into a skill — Cascade's skills are folders that bundle
+the procedure with supporting files and get invoked automatically based on context, instead of me
+having to remember to type /commit every time.
 -->
 
 ---
 
-# How it flows
+# The Rule
 
-<div class="grid grid-cols-2 gap-10 mt-2 items-center">
-<div class="flex flex-col gap-4 text-sm">
-<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
-🔒 <b>Never stages for me</b><br/><span class="opacity-70">I stage manually — only staged changes get committed</span>
-</div>
-<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
-👀 <b>Always reviewable</b><br/><span class="opacity-70">Message shown in chat before anything is committed</span>
-</div>
-<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
-🧹 <b>No AI ads</b><br/><span class="opacity-70">No "Generated with…" noise in my history</span>
-</div>
-</div>
-<div class="flex justify-center">
+Defines the format, the allowed types, and the ticket convention.
 
-```mermaid {scale: 0.62}
-flowchart TD
-  A([stage]) --> B[/commit/]
-  B --> C[read staged diff]
-  C --> D[draft message]
-  D --> E{review}
-  E -- edit --> D
-  E -- go --> F([commit ✅])
-```
-
-</div>
-</div>
-
-<!--
-The flow itself. I stage what I want — deliberately, because staging IS my intent.
-I run slash-commit. It reads only the staged diff, drafts a message using the rule,
-and shows it to me in chat. I can ask for tweaks, or say "proceed" / "commit" / "go" and it commits.
-Three guardrails I care about, along the bottom: it never stages for me — that's sacred, staging is intent.
-It always shows me the message first. And no "Generated with AI" ad in my history.
--->
-
----
-
-# The format
-
-A strict, parseable convention — ticket auto-derived from the branch name.
+Inspired by [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/#summary)
 
 ```md {1|3-4}
 #<ticket> - <type>(<scope>): <title>     ← lowercase title, ≤50 chars, no period
@@ -254,19 +266,60 @@ A strict, parseable convention — ticket auto-derived from the branch name.
 - optional bullet explaining the *why*
 - another high-level point
 ```
+<v-click>
+<div class="mt-4 mb-2 text-sm opacity-70">Allowed types - a fixed, predictable set:</div>
 
-<div class="mt-4 mb-2 text-sm opacity-70">Allowed types — a fixed, predictable set:</div>
-
-<div class="flex flex-wrap gap-2 text-sm">
-  <span class="px-2 py-1 rounded bg-green-500/15 border border-green-500/30">feat</span>
-  <span class="px-2 py-1 rounded bg-red-500/15 border border-red-500/30">fix</span>
-  <span class="px-2 py-1 rounded bg-purple-500/15 border border-purple-500/30">refactor</span>
-  <span class="px-2 py-1 rounded bg-blue-500/15 border border-blue-500/30">docs</span>
-  <span class="px-2 py-1 rounded bg-yellow-500/15 border border-yellow-500/30">test</span>
-  <span class="px-2 py-1 rounded bg-pink-500/15 border border-pink-500/30">chore</span>
-  <span class="px-2 py-1 rounded bg-cyan-500/15 border border-cyan-500/30">style</span>
-  <span class="px-2 py-1 rounded bg-orange-500/15 border border-orange-500/30">perf</span>
+<div class="grid grid-cols-2 gap-4 text-sm">
+  <div>
+  <span class="px-1 py-0.5 rounded bg-green-500/15 border border-green-500/30 mr-2">
+    feat:
+  </span>
+  - New feature or functionality
+  </div>
+  <div>
+  <span class="px-1 py-0.5 rounded bg-red-500/15 border border-red-500/30 mr-2">
+    fix:
+  </span>
+  - Bug fix or correction
+  </div>
+  <div>
+  <span class="px-1 py-0.5 rounded bg-purple-500/15 border border-purple-500/30 mr-2">
+    refactor:
+  </span>
+  - Code restructuring or optimization, not fix or feature
+  </div>
+  <div>
+  <span class="px-1 py-0.5 rounded bg-blue-500/15 border border-blue-500/30 mr-2">
+    docs:
+  </span>
+  - Documentation changes
+  </div>
+  <div>
+  <span class="px-1 py-0.5 rounded bg-yellow-500/15 border border-yellow-500/30 mr-2">
+    test:
+  </span>
+  - Tests changes or additions
+  </div>
+  <div>
+  <span class="px-1 py-0.5 rounded bg-pink-500/15 border border-pink-500/30 mr-2">
+    chore:
+  </span>
+  - Non-user-facing changes - maintenance tasks, deps
+  </div>
+  <div>
+  <span class="px-1 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/30 mr-2">
+    style:
+  </span>
+  - Code style changes
+  </div>
+  <div>
+  <span class="px-1 py-0.5 rounded bg-orange-500/15 border border-orange-500/30 mr-2">
+    perf:
+  </span>
+  - Performance improvements
+  </div>
 </div>
+</v-click>
 
 <div v-click class="mt-6 text-sm opacity-80">
 On branch <code>CALI-3250</code>? → the message starts with <code>#CALI-3250</code> automatically. No copy-paste.
@@ -282,14 +335,61 @@ after the ticket anyway, so I never type the ticket again.
 
 ---
 
+# The Workflow
+
+<div class="grid grid-cols-2 gap-10 mt-2 items-center">
+
+<div>
+
+The workflow is invoked with `/commit` from the Devin chat or Devin CLI.
+
+<div class="flex flex-col gap-4 text-sm">
+<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
+🔒 <b>Never stages on its own</b><br/><span class="opacity-70">The staging is manually - only staged changes get committed</span>
+</div>
+<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
+👀 <b>Always reviewable</b><br/><span class="opacity-70">Message shown in chat before anything is committed</span>
+</div>
+<div v-click class="p-3 rounded border border-purple-500/30 bg-purple-500/5">
+🧹 <b>No AI ads</b><br/><span class="opacity-70">No "Generated with…" noise in history</span>
+</div>
+</div>
+</div>
+
+<div class="flex justify-center">
+
+```mermaid {scale: 0.62}
+flowchart TD
+  A([stage]) --> B[/commit/]
+  B --> C[read staged diff]
+  C --> D[draft message]
+  D --> E{review}
+  E -- edit --> D
+  E -- go --> F([commit ✅])
+```
+
+</div>
+
+</div>
+
+<!--
+The flow itself. I stage what I want — deliberately, because staging IS my intent.
+I run slash-commit. It reads only the staged diff, drafts a message using the rule,
+and shows it to me in chat. I can ask for tweaks, or say "proceed" / "commit" / "go" and it commits.
+Three guardrails I care about, along the bottom: it never stages for me — that's sacred, staging is intent.
+It always shows me the message first. And no "Generated with AI" ad in my history.
+-->
+
+---
+
 # Before → after
 
-The same staged change, two worlds apart:
+The same staged change, two separate outcomes:
 
 <div class="relative h-6 mb-1 text-sm">
-  <span class="absolute inset-x-0 transition-opacity duration-1200" :class="$clicks < 1 ? 'opacity-80' : 'opacity-0'">What the laziest dev would type…</span>
+  <span class="absolute inset-x-0 transition-opacity duration-1200" :class="$clicks < 1 ? 'opacity-80' : 'opacity-0'">Before…</span>
   <span class="absolute inset-x-0 transition-opacity duration-1200" :class="$clicks === 1 ? 'opacity-80' : 'opacity-0'">What the workflow proposes instead…</span>
-  <span class="absolute inset-x-0 transition-opacity duration-1200" :class="$clicks >= 2 ? 'opacity-80' : 'opacity-0'">…and the body, when the change earns it.</span>
+  <span class="absolute inset-x-0 transition-opacity duration-1200" :class="$clicks >= 2 ? 'opacity-80' : 'opacity-0'">…and optionally with a body.</span>
 </div>
 
 ````md magic-move
@@ -310,16 +410,50 @@ WIP
 ```
 ````
 
-<div v-click class="mt-6 text-center opacity-80">
-Same effort for me. Wildly more useful for everyone reading it later.
+<div v-click class="text-xl mt-16 w-full grid place-items-center opacity-80">
+<span>The effort is the same.</span>
+<span>The payoff lands on every <span v-mark.green="4">future reader</span>.</span>
 </div>
 
+---
+
+# What about credits? 💰
+
+<div class="flex items-center gap-8 mb-4">
+
+<img src="/windurf-credits.png" class="w-68 rounded-xl border border-white/10 shadow-lg" />
+
+<div class="flex-1">
+
+<v-clicks>
+
+- 💳 `SWE-1.6` are free to use for now - pick either when drafting a message and it costs nothing
+- ✅ Good enough for the job: summarizing a diff into a few lines
+- 📉 Even outside the promotion, a commit message is a small amount of text
+
+</v-clicks>
+
+</div>
+
+</div>
+
+
+<v-click>
+
+#### The cause
+
+Routing goes through the Devin proxy, so the actual model identifier isn't exposed. 
+
+<em>"Cascade, a coding assistant designed to help with development tasks in this workspace."</em>
+
+</v-click>
+
 <!--
-This is the whole pitch in one slide. Left to right, same staged diff.
-Top: what I'd actually type at 6pm on a Friday — "fix".
-Then what the workflow gives me: a proper semantic message with the ticket.
-And when the change deserves it, a body explaining the why.
-My effort is identical — I stage and say "go". The payoff lands on every future reader.
+A fair question in a corporate setting: does this quietly rack up usage?
+Practically, no — SWE-1.5 and SWE-1.6 are free right now, and either is good enough for a
+few lines of summary. Even without the promotion, this is a tiny amount of text.
+The fun aside: because routing goes through the Devin proxy, I can't even tell you exactly which
+model answers — it only ever identifies itself as "Cascade."
 -->
 
 ---
@@ -329,46 +463,47 @@ My effort is identical — I stage and say "go". The payoff lands on every futur
 <div class="text-sm">
 
 
-|  | ✨ Windsurf button | 🛠️ My workflow |
+|  | ✨ Devin's button | 🛠️ The workflow |
 |---|---|---|
 | **Format** (`#TICKET - type(scope)`) | ❌ not configurable | ✅ enforced by rule |
 | **Ticket from branch** | ❌ | ✅ automatic |
 | **Fixed type vocabulary** | ❌ | ✅ 8 defined types |
-| **Guardrails** (never-stage, no AI ads) | ❌ | ✅ I define them |
 | **Reviewable before commit** | ⚠️ in the box | ✅ in chat, with edits |
-| **Evolves with me** | ❌ beta black box | ✅ plain markdown, versioned |
+| **Evolves with our convention** | ❌ fixed behavior | ✅ plain markdown, versioned |
 
 </div>
 
 <div v-click class="mt-6 text-center text-lg opacity-85">
-The button is someone else's opinion. <span class="text-purple-300">This is mine — and it's a text file.</span>
+The button ships with Devin's defaults. 
+
+<span class="text-purple-300">This ships with our customizations then can be easily edited.</span>
 </div>
 
 <!--
 Side by side. The button covers the happy path, but every row where I want control, it's a no.
 Mine is yes across the board because it's just markdown I wrote.
-The one-liner I'd leave them with: the button is someone else's opinion baked into beta software.
-Mine is my opinion, and it's a text file I can change whenever my team's convention changes.
+The line I'd leave them with: the button ships with someone else's defaults. Mine ships with mine,
+and it's a text file I can change whenever our convention changes.
 -->
 
 ---
 layout: statement
 ---
 
-# Make the good commit<br/>the _lazy_ commit.
+# Make the good commits <br/>and keep automating. 🚀
 
-<div class="text-lg opacity-75 mt-8 max-w-xl mx-auto">
-Low friction <span class="opacity-50">+</span> my rules <span class="opacity-50">=</span>
-a history I'm actually proud of.
+<div class="mt-12 opacity-60">
+Thank you for your attention!
 </div>
 
-<div v-click class="mt-12 text-sm opacity-60">
-Two markdown files. Steal them, bend them to your convention, commit better.
+<div class="mt-6 text-sm opacity-50">
+  Ivo Karaneshev · IT-DEV Reporting · July 2026
 </div>
 
 <!--
-The takeaway. The trick isn't "use AI" — it's removing friction while keeping control,
-so the good message becomes the path of least resistance.
-Two small markdown files did that for me. Steal them, change the format to your team's,
-and your git log stops being something you apologize for. That's it — thanks!
+The takeaway: the trick isn't "use AI" — it's removing friction while keeping control, so the
+good message becomes the easy one to write.
+Two small markdown files did that for me. Steal them, adapt the format to your team's convention —
+the hard part was never the code, it's deciding what a good commit message looks like for your
+project. Once you have that, the workflow does the rest. Thank you.
 -->
