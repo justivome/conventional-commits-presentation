@@ -5,6 +5,8 @@ info: |
   ## Commit Messages, On My Terms
   A configurable Devin workflow that writes semantic commit messages
   for my staged changes — in the format I control.
+  
+  © 2026 Ivo Karaneshev · IT-DEV Reporting (California Squad) · July 2026
 class: text-center
 drawings:
   persist: false
@@ -24,7 +26,7 @@ Automation that costs a moment now and pays off every time someone reads the his
 </p>
 
 <div class="mt-6 text-sm opacity-50">
-  Ivo Karaneshev · IT-DEV Reporting · July 2026
+  Ivo Karaneshev · IT-DEV Reporting (California Squad) · July 2026
 </div>
 
 </div>
