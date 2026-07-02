@@ -1,5 +1,5 @@
 ---
-theme: dracula
+theme: ./theme
 title: Commit Messages,<br>On My Terms
 info: |
   ## Commit Messages, On My Terms
