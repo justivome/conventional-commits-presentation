@@ -494,7 +494,7 @@ layout: statement
 # Make the good commits <br/>and keep automating. 🚀
 
 <div class="mt-12 opacity-60">
-Thank you for your attention!
+<b>Small improvements sometimes bring the big impact.</b>
 </div>
 
 <div class="mt-6 text-sm opacity-50">
