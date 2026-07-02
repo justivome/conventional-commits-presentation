@@ -232,11 +232,12 @@ based on context
 
 </v-clicks>
 
-<p v-click class="text-sm">
+<div v-click class="text-sm">
 
 ✅ *TODO* : turning <code>/commit</code> from a workflow into a <b>skill</b>, so Cascade can invoke it on its own.
 
-</p>
+</div>
+
 <div v-click class="mt-6 text-xs text-center opacity-60">
  See Devin's <a href="https://docs.devin.ai/desktop/cascade/skills#skills-vs-rules-vs-workflows" target="_blank">Skills vs Rules vs Workflows</a>.
 </div>
